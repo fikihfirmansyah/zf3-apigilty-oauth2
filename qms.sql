@@ -2,9 +2,9 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: mysql
--- Generation Time: Jul 15, 2021 at 04:17 AM
--- Server version: 8.0.25
+-- Host: db
+-- Generation Time: Aug 02, 2021 at 10:36 AM
+-- Server version: 5.6.51
 -- PHP Version: 7.4.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -28,14 +28,75 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `authorization_codes` (
-  `authorization_code` varchar(80) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `client_id` varchar(80) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `user_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `redirect_uri` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `authorization_code` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
+  `client_id` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `redirect_uri` varchar(2000) COLLATE utf8_unicode_ci DEFAULT NULL,
   `expires` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `scope` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `id_token` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+  `scope` varchar(2000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id_token` varchar(2000) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `berita_komentar`
+--
+
+CREATE TABLE `berita_komentar` (
+  `uuid` varchar(36) COLLATE utf8_unicode_ci NOT NULL,
+  `konten_uuid` varchar(36) COLLATE utf8_unicode_ci NOT NULL,
+  `komentar` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `penulis` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `berita_komentar`
+--
+
+INSERT INTO `berita_komentar` (`uuid`, `konten_uuid`, `komentar`, `penulis`, `created_at`, `updated_at`, `deleted_at`) VALUES
+('3603ce96-f37b-11eb-b428-0242ac110002', 'd87ea500-f37a-11eb-b428-0242ac110002', 'Isi1', 'Penulis1', '2021-08-02 17:20:07', '2021-08-02 17:20:07', NULL),
+('365dc4fa-f37b-11eb-b428-0242ac110002', 'd87ea500-f37a-11eb-b428-0242ac110002', 'Isi1', 'Penulis1', '2021-08-02 17:20:08', '2021-08-02 17:20:08', '2021-08-02 17:21:12'),
+('36b0ba10-f37b-11eb-b428-0242ac110002', 'd87ea500-f37a-11eb-b428-0242ac110002', 'Isi1', 'Penulis1', '2021-08-02 17:20:08', '2021-08-02 17:20:08', NULL),
+('c2bd0538-f378-11eb-b428-0242ac110002', '959c590b-f359-11eb-a017-0242ac110002', 'konten', 'Penulis1', '2021-08-02 17:02:35', '2021-08-02 17:02:35', '2021-08-02 17:03:45'),
+('f3251a64-f37a-11eb-b428-0242ac110002', 'd87ea500-f37a-11eb-b428-0242ac110002', 'Isi1aaaa', 'Penulis1', '2021-08-02 17:18:15', '2021-08-02 17:20:35', NULL),
+('f963862a-f378-11eb-b428-0242ac110002', '959c590b-f359-11eb-a017-0242ac110002', 'konten', 'Penulis1', '2021-08-02 17:04:07', '2021-08-02 17:04:07', NULL),
+('f9db6658-f378-11eb-b428-0242ac110002', '959c590b-f359-11eb-a017-0242ac110002', 'konten', 'Penulis1', '2021-08-02 17:04:07', '2021-08-02 17:04:07', NULL),
+('fa3a4073-f378-11eb-b428-0242ac110002', '959c590b-f359-11eb-a017-0242ac110002', 'konten', 'Penulis1', '2021-08-02 17:04:08', '2021-08-02 17:04:08', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `berita_konten`
+--
+
+CREATE TABLE `berita_konten` (
+  `uuid` varchar(36) COLLATE utf8_unicode_ci NOT NULL,
+  `judul` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `isi` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `penulis` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `kategori` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `berita_konten`
+--
+
+INSERT INTO `berita_konten` (`uuid`, `judul`, `isi`, `penulis`, `kategori`, `created_at`, `updated_at`, `deleted_at`) VALUES
+('959c590b-f359-11eb-a017-0242ac110002', 'Judul1', 'Isi1', 'Penulis1', 'Drama', '2021-08-02 13:19:25', '2021-08-02 13:19:25', NULL),
+('96701148-f359-11eb-a017-0242ac110002', 'Judul1', 'Isi1', 'Penulis1', 'Drama', '2021-08-02 13:19:26', '2021-08-02 13:19:26', NULL),
+('96d82c7c-f359-11eb-a017-0242ac110002', 'Judul1', 'Isi1', 'Penulis1', 'Drama', '2021-08-02 13:19:27', '2021-08-02 13:19:27', NULL),
+('9732f28c-f359-11eb-a017-0242ac110002', 'Judul1', 'Isi1', 'Penulis1', 'Drama', '2021-08-02 13:19:27', '2021-08-02 13:19:27', NULL),
+('9c332a61-f359-11eb-a017-0242ac110002', 'Judul2', 'Isi1', 'Penulis1', 'HORROR', '2021-08-02 13:19:36', '2021-08-02 13:19:55', NULL),
+('d1e52118-f37a-11eb-b428-0242ac110002', 'Judul1', 'Isi1', 'Penulis1', 'Drama', '2021-08-02 17:17:19', '2021-08-02 17:17:19', NULL),
+('d87ea500-f37a-11eb-b428-0242ac110002', 'Judulaaaaaaaaaaaaaa2', 'Isi1', 'Penulis1', 'Drama', '2021-08-02 17:17:30', '2021-08-02 17:17:51', NULL),
+('e343f712-f34e-11eb-a017-0242ac110002', 'Judul2', 'Isi1', 'Penulis1', 'HORROR', '2021-08-02 12:02:51', '2021-08-02 12:03:23', '2021-08-02 13:20:18');
 
 -- --------------------------------------------------------
 
@@ -44,8 +105,8 @@ CREATE TABLE `authorization_codes` (
 --
 
 CREATE TABLE `migrations` (
-  `version` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+  `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -65,7 +126,11 @@ INSERT INTO `migrations` (`version`) VALUES
 ('20210611024244'),
 ('20210611024405'),
 ('20210617033806'),
-('20210621031311');
+('20210621031311'),
+('20210802034146'),
+('20210802034149'),
+('20210802045842'),
+('20210802083448');
 
 -- --------------------------------------------------------
 
@@ -74,12 +139,12 @@ INSERT INTO `migrations` (`version`) VALUES
 --
 
 CREATE TABLE `oauth_access_tokens` (
-  `access_token` varchar(40) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `client_id` varchar(80) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `user_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `access_token` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `client_id` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `expires` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `scope` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+  `scope` varchar(2000) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `oauth_access_tokens`
@@ -87,8 +152,23 @@ CREATE TABLE `oauth_access_tokens` (
 
 INSERT INTO `oauth_access_tokens` (`access_token`, `client_id`, `user_id`, `expires`, `scope`) VALUES
 ('08692b00a9b071ec1452fc8ee56dcd3eac10f943', 'qms-web', 'xtendlobby', '2021-06-11 16:20:32', NULL),
+('0dfeabc946451149546da47f988b30c363a27563', 'qms-web', 'xtendlobby', '2021-08-02 11:36:38', NULL),
+('1b86779d956372c1fb7763e4d54f680f91b6a3bb', 'qms-web', 'xtendlobby', '2021-08-02 18:24:21', NULL),
+('277458e73099205689ea46b74a9cd48bafa321a1', 'qms-web', 'xtendlobby', '2021-08-02 11:36:41', NULL),
+('2a0045846db3a92872308ae57cb373a75b19f98f', 'qms-web', 'xtendlobby', '2021-08-02 11:37:05', NULL),
+('3903fb5f36da65503ec01db7101c230eaadab2be', 'qms-web', 'xtendlobby', '2021-08-02 18:27:17', NULL),
+('51692672a09ba1b4ef04196b9e61c48b8afe8b37', 'qms-web', 'xtendlobby', '2021-08-02 11:37:04', NULL),
+('5b8393bfbb6d6790d5f7c622f0b7e2449cab3f53', 'qms-web', 'xtendlobby', '2021-08-02 18:16:56', NULL),
+('654ae02bb8fd69b563a2853c669aa2f3713aff6f', 'qms-web', 'xtendlobby', '2021-08-02 11:30:36', NULL),
+('6818d413da6d7dfcc9511e225af5e479e5adbd85', 'qms-web', 'xtendlobby', '2021-08-02 11:37:01', NULL),
 ('73e5c2f5969b27d1c6c0d2d58cfa71d5b1a29b1b', 'qms-web', 'xtendlobby', '2022-06-11 15:27:27', NULL),
-('82d3d6ae43f78de3741698a35749ffef892de456', 'qms-web', 'xtendlobby', '2021-06-11 16:21:17', NULL);
+('797f2167f5468d613b1eb741003472531d929412', 'qms-web', 'xtendlobby', '2021-08-02 11:37:00', NULL),
+('82d3d6ae43f78de3741698a35749ffef892de456', 'qms-web', 'xtendlobby', '2021-06-11 16:21:17', NULL),
+('ab47b6aaf0355e2944d2c87ff5e22b4c17696e12', 'qms-web', 'xtendlobby', '2021-08-02 11:36:56', NULL),
+('b75c01cac7f972adeae6c04e7e9ac8166e7adba8', 'qms-web', 'xtendlobby', '2021-08-02 18:22:59', NULL),
+('b98479eb4c3ea8f88156c9e2acf43aa7cc6d0ef1', 'qms-web', 'xtendlobby', '2021-08-02 18:23:07', NULL),
+('beaf835c84a33aa61f3157119b040aca94855406', 'qms-web', 'xtendlobby', '2021-08-02 11:37:03', NULL),
+('e4f6a4b6ea1f5fe1af40475eba672830f5b7fe75', 'qms-web', 'xtendlobby', '2021-08-02 11:37:02', NULL);
 
 -- --------------------------------------------------------
 
@@ -97,13 +177,13 @@ INSERT INTO `oauth_access_tokens` (`access_token`, `client_id`, `user_id`, `expi
 --
 
 CREATE TABLE `oauth_clients` (
-  `client_id` varchar(80) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `client_secret` varchar(80) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `redirect_uri` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `grant_types` varchar(80) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `scopes` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `user_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+  `client_id` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
+  `client_secret` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
+  `redirect_uri` varchar(2000) COLLATE utf8_unicode_ci NOT NULL,
+  `grant_types` varchar(80) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `scopes` varchar(2000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `oauth_clients`
@@ -119,10 +199,10 @@ INSERT INTO `oauth_clients` (`client_id`, `client_secret`, `redirect_uri`, `gran
 --
 
 CREATE TABLE `oauth_jwt` (
-  `client_id` varchar(80) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `subject` varchar(80) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `public_key` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+  `client_id` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
+  `subject` varchar(80) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `public_key` varchar(2000) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -131,25 +211,38 @@ CREATE TABLE `oauth_jwt` (
 --
 
 CREATE TABLE `oauth_refresh_tokens` (
-  `refresh_token` varchar(40) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `client_id` varchar(80) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `user_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `refresh_token` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `client_id` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `expires` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `scope` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+  `scope` varchar(2000) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `oauth_refresh_tokens`
 --
 
 INSERT INTO `oauth_refresh_tokens` (`refresh_token`, `client_id`, `user_id`, `expires`, `scope`) VALUES
+('00e158742fb68e6d161185eccf48e287e1a76ef4', 'qms-web', 'xtendlobby', '2021-08-16 10:37:05', NULL),
 ('08d00a3eaa94c53de8442231ab8b53bec49981ee', 'qms-web', 'xtendlobby', '2021-06-24 14:47:09', NULL),
 ('1124ba01fcc5558c48884067392058a593ec21a5', 'qms-web', 'xtendlobby', '2021-06-25 15:17:44', NULL),
+('21dbd6b4c3ae9a50e25def9d884691163aae6317', 'qms-web', 'xtendlobby', '2021-08-16 17:16:56', NULL),
+('22217856687ffbc24b8a213356c8125b31414da9', 'qms-web', 'xtendlobby', '2021-08-16 10:30:36', NULL),
+('44b3351852f994239e75450e60ee09419f31ff22', 'qms-web', 'xtendlobby', '2021-08-16 17:23:07', NULL),
+('4bc8a389541bda17f2386fcbd044ad06c64999dd', 'qms-web', 'xtendlobby', '2021-08-16 17:27:17', NULL),
 ('5bf6d92a22c308f5f59207a3e75d4dd115233441', 'qms-web', 'xtendlobby', '2021-06-25 15:27:27', NULL),
+('63bd7c9055f920c749e8312cc1bd8558d7f79438', 'qms-web', 'xtendlobby', '2021-08-16 17:24:21', NULL),
 ('8803db57d7ec4206c94a136b3b7af606e15debd6', 'qms-web', 'xtendlobby', '2021-06-25 15:21:17', NULL),
+('98281c4c4fe25c86f5c233717ca3ca5bab94b630', 'qms-web', 'xtendlobby', '2021-08-16 10:37:03', NULL),
 ('99c8652c9100e2bea8c9b28aaad83f4ce3540f41', 'qms-web', 'xtendlobby', '2021-06-24 14:26:11', NULL),
+('ac66d1155bfe651e7c38ad0da922edd76b119e6a', 'qms-web', 'xtendlobby', '2021-08-16 10:36:41', NULL),
+('b7af70800a566881e66c241cc2d2c5b6817986c9', 'qms-web', 'xtendlobby', '2021-08-16 10:37:02', NULL),
 ('db97862f7dfbd85f30d8a14a1e228c06ea299780', 'qms-web', 'xtendlobby', '2021-06-25 15:20:32', NULL),
-('ea08951d22747a801dccb1d778a3045a6c5cb33a', 'qms-web', 'xtendlobby', '2021-06-24 14:24:12', NULL);
+('ddf6032b21f380e1bb5075aeddce7e96f5d7712b', 'qms-web', 'xtendlobby', '2021-08-16 10:37:00', NULL),
+('e500f8cb8af6e06ac0ee5adc9d080ee0df51d9f6', 'qms-web', 'xtendlobby', '2021-08-16 10:37:01', NULL),
+('e59018cc51e1403c1d1053dd368c5d5eb35cb43e', 'qms-web', 'xtendlobby', '2021-08-16 10:36:56', NULL),
+('ea08951d22747a801dccb1d778a3045a6c5cb33a', 'qms-web', 'xtendlobby', '2021-06-24 14:24:12', NULL),
+('efcd76b80e77e4145a428cbe99fe58b4a19237a3', 'qms-web', 'xtendlobby', '2021-08-16 10:37:04', NULL);
 
 -- --------------------------------------------------------
 
@@ -158,12 +251,12 @@ INSERT INTO `oauth_refresh_tokens` (`refresh_token`, `client_id`, `user_id`, `ex
 --
 
 CREATE TABLE `oauth_scopes` (
-  `id` int NOT NULL,
-  `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'supported',
-  `scope` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `client_id` varchar(80) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `is_default` smallint DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+  `id` int(11) NOT NULL,
+  `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'supported',
+  `scope` varchar(2000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `client_id` varchar(80) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `is_default` smallint(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -172,11 +265,11 @@ CREATE TABLE `oauth_scopes` (
 --
 
 CREATE TABLE `oauth_users` (
-  `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `first_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `last_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(2000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `first_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `oauth_users`
@@ -192,14 +285,14 @@ INSERT INTO `oauth_users` (`username`, `password`, `first_name`, `last_name`) VA
 --
 
 CREATE TABLE `queue_devices` (
-  `uuid` varchar(36) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `site_uuid` varchar(36) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `uuid` varchar(36) COLLATE utf8_unicode_ci NOT NULL,
+  `site_uuid` varchar(36) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `queue_devices`
@@ -215,10 +308,10 @@ INSERT INTO `queue_devices` (`uuid`, `site_uuid`, `name`, `description`, `create
 --
 
 CREATE TABLE `queue_logs` (
-  `uuid` varchar(36) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `device_uuid` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `number` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `counter_number` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `uuid` varchar(36) COLLATE utf8_unicode_ci NOT NULL,
+  `device_uuid` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `number` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `counter_number` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `reserved_time` datetime NOT NULL,
   `called_time` datetime DEFAULT NULL,
   `end_time` datetime DEFAULT NULL,
@@ -227,7 +320,7 @@ CREATE TABLE `queue_logs` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `queue_logs`
@@ -250,13 +343,13 @@ CREATE TABLE `queue_log_daily_summaries` (
   `device_uuid` varchar(36) COLLATE utf8_unicode_ci NOT NULL,
   `counter_number` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `date` date NOT NULL,
-  `total_queue` int NOT NULL DEFAULT '0',
+  `total_queue` int(11) NOT NULL DEFAULT '0',
   `avg_processing_time` double NOT NULL DEFAULT '0',
   `avg_waiting_time` double NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `queue_log_daily_summaries`
@@ -272,19 +365,20 @@ INSERT INTO `queue_log_daily_summaries` (`uuid`, `device_uuid`, `counter_number`
 --
 
 CREATE TABLE `queue_sites` (
-  `uuid` varchar(36) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `uuid` varchar(36) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `queue_sites`
 --
 
 INSERT INTO `queue_sites` (`uuid`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
+('2c101c90-f342-11eb-a017-0242ac110002', 'Gamma', NULL, '2021-08-02 10:31:49', '2021-08-02 10:31:49', NULL),
 ('4132b069-c116-4ecb-9468-a71e4364f7f6', 'XTend Indonesia', NULL, '2021-06-11 05:09:23', '2021-06-11 05:09:23', NULL);
 
 -- --------------------------------------------------------
@@ -294,15 +388,15 @@ INSERT INTO `queue_sites` (`uuid`, `name`, `description`, `created_at`, `updated
 --
 
 CREATE TABLE `user_accounts` (
-  `uuid` varchar(36) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `phone` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `name` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `uuid` varchar(36) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `phone` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -311,15 +405,15 @@ CREATE TABLE `user_accounts` (
 --
 
 CREATE TABLE `user_reset_passwords` (
-  `uuid` varchar(36) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `uuid` varchar(36) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `expiration` datetime NOT NULL,
   `reseted` datetime DEFAULT NULL,
-  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Indexes for dumped tables
@@ -330,6 +424,19 @@ CREATE TABLE `user_reset_passwords` (
 --
 ALTER TABLE `authorization_codes`
   ADD PRIMARY KEY (`authorization_code`);
+
+--
+-- Indexes for table `berita_komentar`
+--
+ALTER TABLE `berita_komentar`
+  ADD PRIMARY KEY (`uuid`),
+  ADD KEY `konten_idx` (`konten_uuid`);
+
+--
+-- Indexes for table `berita_konten`
+--
+ALTER TABLE `berita_konten`
+  ADD PRIMARY KEY (`uuid`);
 
 --
 -- Indexes for table `migrations`
@@ -430,11 +537,17 @@ ALTER TABLE `user_reset_passwords`
 -- AUTO_INCREMENT for table `oauth_scopes`
 --
 ALTER TABLE `oauth_scopes`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `berita_komentar`
+--
+ALTER TABLE `berita_komentar`
+  ADD CONSTRAINT `FK_D858270D252DE0F9` FOREIGN KEY (`konten_uuid`) REFERENCES `berita_konten` (`uuid`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `queue_devices`
