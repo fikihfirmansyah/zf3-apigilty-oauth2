@@ -10,6 +10,13 @@ return [
                 ],
             ],
         ],
+        'configuration' => [
+            'orm_default' => [
+                'filters' => [
+                    'soft-deleteable' => 'Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter'
+                ]
+            ]
+        ],
         'driver' => [
             'aqilix_oauth2_entity' => [
                 'class' => 'Doctrine\ORM\Mapping\Driver\XmlDriver',
@@ -22,12 +29,5 @@ return [
                 ]
             ]
         ],
-        'configuration' => [
-            'orm_default' => [
-                'filters' => [
-                    'soft-deleteable' => 'Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter'
-                ]
-            ]
-        ]
     ]
 ];

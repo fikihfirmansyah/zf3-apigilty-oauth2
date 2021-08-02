@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
+
+  <entity name="Queue\Entity\Device" table="queue_devices">
+    <indexes>
+      <index name="queue_device_site_idx" columns="site_uuid"/>
+    </indexes>
+
+    <id name="uuid" type="string" column="uuid" length="36">
+      <generator strategy="UUID"/>
+    </id>
+
+    <field name="name" type="string" column="name" length="100" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="description" type="string" column="description" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+
+    <field name="createdAt" type="datetime" column="created_at" nullable="false">
+      <options>
+        <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+      <gedmo:timestampable on="create"/>
+    </field>
+    <field name="updatedAt" type="datetime" column="updated_at" nullable="false">
+      <options>
+        <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+      <gedmo:timestampable on="update"/>
+    </field>
+    <field name="deletedAt" type="datetime" column="deleted_at" nullable="true"/>
+
+    <gedmo:soft-deleteable field-name="deletedAt" time-aware="false" />
+
+    <many-to-one field="site" target-entity="Queue\Entity\Site" fetch="LAZY">
+      <join-columns>
+        <join-column name="site_uuid" referenced-column-name="uuid"/>
+      </join-columns>
+    </many-to-one>
+
+    <one-to-many field="logs" target-entity="Queue\Entity\Log" mapped-by="device" />
+    <one-to-many field="logDailySummaries" target-entity="Queue\Entity\LogDailySummary" mapped-by="device" />
+  </entity>
+</doctrine-mapping>

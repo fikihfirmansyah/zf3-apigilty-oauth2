@@ -1,7 +1,6 @@
 <?php
 /**
  * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2016 IsItUp.com
  * @author    Dolly Aswin <dolly.aswin@gmail.com>
  */
 
@@ -18,6 +17,14 @@ use Zend\EventManager\EventManager;
  */
 class PdoAdapter extends ZFOAuth2PdoAdapter
 {
+    const ACCOUNT_DELIMITER = ':';
+
+    /**
+     *
+     * @var ZF\ContentNegotiation\Request
+     */
+    protected $request;
+
     /**
      *
      * @var EventManager
@@ -29,9 +36,36 @@ class PdoAdapter extends ZFOAuth2PdoAdapter
      */
     protected $mvcAuthEvent;
 
-    public function __construct($connection, $config)
+    public function __construct($connection, $request, $config = [])
     {
+        $this->setRequest($request);
         parent::__construct($connection, $config);
+    }
+
+    public function setAccessToken($accessToken, $clientId, $userId, $expires, $scope = null)
+    {
+        parent::setAccessToken($accessToken, $clientId, $userId, $expires, $scope);
+    }
+
+    /**
+     * @param string $access_token
+     * @return array|bool|mixed|null
+     */
+    public function getAccessToken($access_token)
+    {
+        $stmt  = $this->db->prepare(sprintf(
+            'SELECT ac.* FROM %s AS ac '
+            .'WHERE ac.access_token = :access_token',
+            $this->config['access_token_table']
+        ));
+        $token = $stmt->execute(compact('access_token'));
+
+        if ($token = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+            // convert date string back to timestamp
+            $token['expires'] = strtotime($token['expires']);
+        }
+
+        return $token;
     }
 
     /**
@@ -89,5 +123,16 @@ class PdoAdapter extends ZFOAuth2PdoAdapter
     public function setEventManager(EventManager $eventManager)
     {
         $this->eventManager = $eventManager;
+    }
+
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+    public function setRequest($request)
+    {
+        $this->request = $request;
+        return $this;
     }
 }

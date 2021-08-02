@@ -6,9 +6,28 @@ return [
            'activation_url' => 'https://aqilix.xyz/user/activation/:code',
            'contact_us' => 'https://aqilix.com'
         ],
+        'branchPhoto' => [
+           'img_dir'  => 'data/branch-photo',
+           'url'  => 'http://localhost',
+           'max_uploaded_photo' => 1
+        ],
+        'hotel_photo' => [
+           'img_dir'  => 'data/hotel-photo',
+           'url'  => 'http://localhost',
+           'max_uploaded_photo' => 1
+        ],
+        'web' => [
+           'allowed_client_id' => 'rcs-web'
+        ],
     ],
     'php_process' => [
         'php_binary' => '/usr/bin/php',
         'script' => __DIR__ . '/../../public/index.php'
-    ]
+    ],
+    'zenziva' => [
+        'ssl_verify' => false,
+        'base_uri' => 'https://alpha.zenziva.net',
+        'userkey'  => '',
+        'passkey'  => '',
+    ],
 ];

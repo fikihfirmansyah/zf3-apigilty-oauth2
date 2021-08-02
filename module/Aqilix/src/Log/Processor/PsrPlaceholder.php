@@ -11,7 +11,7 @@ class PsrPlaceholder extends \Zend\Log\Processor\PsrPlaceholder
     public function process(array $event)
     {
         $event = parent::process($event);
-        $event["extra"] = null;
+        $event["extra"] = [];
         return $event;
     }
 }

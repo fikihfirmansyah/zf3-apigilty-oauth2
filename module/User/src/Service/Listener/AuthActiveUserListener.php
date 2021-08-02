@@ -33,30 +33,51 @@ class AuthActiveUserListener
             return;
         }
 
-        $userProfile = $this->getUserProfileMapper()->fetchOneBy(['user' => $username]);
-        if (! $userProfile->isActive()) {
-            $response = new ApiProblemResponse(
-                new ApiProblem(
-                    401,
-                    "Your account has not yet been activated. "
-                    . "We have sent an email to " . $username . " "
-                    . "Please check your inbox and click on the activation link "
-                    . "to continue registration. If you do not see the email "
-                    . "please check your Spam/Junk folder just in case"
-                )
-            );
-            $mvcEvent = $mvcAuthEvent->getMvcEvent();
-            $mvcResponse = $mvcEvent->getResponse();
-            $mvcResponse->setStatusCode($response->getStatusCode());
-            $mvcResponse->setHeaders($response->getHeaders());
-            $mvcResponse->setContent($response->getContent());
-            $mvcResponse->setReasonPhrase('Unauthorized');
-            $em = $mvcEvent->getApplication()->getEventManager();
-            $mvcEvent->setName(MvcEvent::EVENT_FINISH);
-            $em->triggerEvent($mvcEvent);
-            $mvcAuthEvent->stopPropagation();
-            return $mvcResponse;
-        }
+        // $userProfile = $this->getUserProfileMapper()->fetchOneBy(['username' => $username]);
+
+        // if (is_null($userProfile)) {
+        //     $response = new ApiProblemResponse(
+        //         new ApiProblem(
+        //             404,
+        //             "Tenant does not exist"
+        //         )
+        //     );
+        //     $mvcEvent = $mvcAuthEvent->getMvcEvent();
+        //     $mvcResponse = $mvcEvent->getResponse();
+        //     $mvcResponse->setStatusCode($response->getStatusCode());
+        //     $mvcResponse->setHeaders($response->getHeaders());
+        //     $mvcResponse->setContent($response->getContent());
+        //     $mvcResponse->setReasonPhrase('Unauthorized');
+        //     $em = $mvcEvent->getApplication()->getEventManager();
+        //     $mvcEvent->setName(MvcEvent::EVENT_FINISH);
+        //     $em->triggerEvent($mvcEvent);
+        //     $mvcAuthEvent->stopPropagation();
+        //     return $mvcResponse;
+        // }
+
+        // if (! $userProfile->getIsActive()) {
+        //     $response = new ApiProblemResponse(
+        //         new ApiProblem(
+        //             401,
+        //             "Your account has not yet been activated. "
+        //             . "We have sent an email to " . $userProfile->getEmail() . " "
+        //             . "Please check your inbox and click on the activation link "
+        //             . "to continue registration. If you do not see the email "
+        //             . "please check your Spam/Junk folder just in case"
+        //         )
+        //     );
+        //     $mvcEvent = $mvcAuthEvent->getMvcEvent();
+        //     $mvcResponse = $mvcEvent->getResponse();
+        //     $mvcResponse->setStatusCode($response->getStatusCode());
+        //     $mvcResponse->setHeaders($response->getHeaders());
+        //     $mvcResponse->setContent($response->getContent());
+        //     $mvcResponse->setReasonPhrase('Unauthorized');
+        //     $em = $mvcEvent->getApplication()->getEventManager();
+        //     $mvcEvent->setName(MvcEvent::EVENT_FINISH);
+        //     $em->triggerEvent($mvcEvent);
+        //     $mvcAuthEvent->stopPropagation();
+        //     return $mvcResponse;
+        // }
 
         return;
     }

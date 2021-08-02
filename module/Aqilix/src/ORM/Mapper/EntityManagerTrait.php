@@ -17,18 +17,18 @@ use Doctrine\ORM\EntityManagerInterface;
 trait EntityManagerTrait
 {
     /**
-     * EntityManager Object
+     * The entity manager object.
      *
-     * @var EntityManagerInterface
+     * @var \Doctrine\ORM\EntityManagerInterface
      */
     protected $em;
 
     /**
-     * Set EntityManager
+     * Set the entity manager.
      *
-     * @param  EntityManagerInterface $entityManager
+     * @param  \Doctrine\ORM\EntityManagerInterface  $entityManager
      *
-     * @return $this
+     * @return self
      */
     public function setEntityManager(EntityManagerInterface $em)
     {
@@ -37,9 +37,9 @@ trait EntityManagerTrait
     }
 
     /**
-     * Get EntityManager
+     * Get the entity manager.
      *
-     * @return EntityManagerInterface
+     * @return \Doctrine\ORM\EntityManagerInterface
      **/
     public function getEntityManager()
     {

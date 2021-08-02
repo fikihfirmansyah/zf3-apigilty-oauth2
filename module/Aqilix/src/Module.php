@@ -13,11 +13,13 @@ class Module
     public function onBootstrap(MvcEvent $mvcEvent)
     {
         $serviceManager = $mvcEvent->getApplication()->getServiceManager();
-        $eventManager   = $mvcEvent->getApplication()->getEventManager();
+//         $eventManager   = $mvcEvent->getApplication()->getEventManager();
         $em = $serviceManager->get('doctrine.entitymanager.orm_default');
         // enable soft-deletable
         $em->getFilters()
            ->enable('soft-deleteable');
+//         $doctrineEventManager  = $em->getEventManager();
+//         $doctrineEventManager->addEventListener([\Doctrine\ORM\Events::postRemove], );
     }
 
     public function getConfig()

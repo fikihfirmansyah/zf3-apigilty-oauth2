@@ -17,7 +17,7 @@ return [
         "delegators" => [
             "logger_default" => [
                 Aqilix\Service\PsrLoggerDelegator::class
-            ]
+            ],
         ]
     ],
     "log" => [
@@ -31,6 +31,6 @@ return [
                     ]
                 ]
             ]
-        ]
+        ],
     ]
 ];

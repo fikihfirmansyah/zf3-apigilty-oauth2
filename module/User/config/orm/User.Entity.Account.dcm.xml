@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
+
+  <entity name="User\Entity\Account" table="user_accounts">
+    <indexes>
+      <index name="user_username_idx" columns="username"/>
+      <index name="user_email_idx" columns="email"/>
+      <index name="user_phone_idx" columns="phone"/>
+      <index name="user_name_idx" columns="name"/>
+    </indexes>
+
+    <id name="uuid" type="string" column="uuid" length="36">
+      <generator strategy="UUID"/>
+    </id>
+
+    <field name="email" type="string" column="email" length="64" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="phone" type="string" column="phone" length="128" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="name" type="string" column="name" length="128" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="createdAt" type="datetime" column="created_at" nullable="false">
+      <gedmo:timestampable on="create"/>
+    </field>
+    <field name="updatedAt" type="datetime" column="updated_at" nullable="false">
+      <gedmo:timestampable on="update"/>
+    </field>
+    <field name="deletedAt" type="datetime" column="deleted_at" nullable="true" />
+
+    <gedmo:soft-deleteable field-name="deletedAt" time-aware="false" />
+
+    <many-to-one field="username" target-entity="\Aqilix\OAuth2\Entity\OauthUsers" fetch="LAZY">
+      <join-columns>
+        <join-column name="username" referenced-column-name="username"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

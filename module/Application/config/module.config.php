@@ -23,6 +23,11 @@ return [
             ],
         ],
     ],
+    'service_manager' => [
+        'factories' => [
+            // 'doctrine.cache.ticket' => \Application\V1\Service\RedisCacheFactory::class
+        ]
+    ],
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,

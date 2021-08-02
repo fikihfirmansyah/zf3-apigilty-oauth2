@@ -26,7 +26,8 @@ class PdoAdapterFactory extends ZFOAuth2PdoAdapterFactory
      */
     public function __invoke(ContainerInterface $container)
     {
-        $config = $container->get('config');
+        $config  = $container->get('config');
+        $request = $container->get('Request');
         if (empty($config['zf-oauth2']['db'])) {
             throw new Exception\RuntimeException(
                 'The database configuration [\'zf-oauth2\'][\'db\'] for OAuth2 is missing'
@@ -49,7 +50,7 @@ class PdoAdapterFactory extends ZFOAuth2PdoAdapterFactory
             'username' => $username,
             'password' => $password,
             'options'  => $options,
-        ], $oauth2ServerConfig);
+        ], $request, $oauth2ServerConfig);
         return $pdoAdapter;
     }
 }

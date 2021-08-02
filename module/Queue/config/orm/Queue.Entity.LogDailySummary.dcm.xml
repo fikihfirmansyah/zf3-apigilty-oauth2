@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
+
+  <entity name="Queue\Entity\LogDailySummary" table="queue_log_daily_summaries">
+
+    <indexes>
+      <index name="daily_summary_counter_idx" columns="counter_number"/>
+      <index name="daily_summary_date_idx" columns="date"/>
+      <index name="daily_summary_device_idx" columns="device_uuid"/>
+    </indexes>
+
+    <id name="uuid" type="string" column="uuid" length="36">
+      <generator strategy="UUID"/>
+    </id>
+
+    <field name="counterNumber" type="string" column="counter_number" length="50" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="date" type="date" column="date" nullable="false"/>
+    <field name="totalQueue" type="integer" column="total_queue" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="avgProcessingTime" type="float" column="avg_processing_time" precision="10" scale="0" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="avgWaitingTime" type="float" column="avg_waiting_time" precision="10" scale="0" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="createdAt" type="datetime" column="created_at" nullable="false">
+      <options>
+        <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+    </field>
+    <field name="updatedAt" type="datetime" column="updated_at" nullable="false">
+      <options>
+        <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+    </field>
+    <field name="deletedAt" type="datetime" column="deleted_at" nullable="true"/>
+
+    <many-to-one field="device" target-entity="Queue\Entity\Device" fetch="LAZY">
+      <join-columns>
+        <join-column name="device_uuid" referenced-column-name="uuid"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

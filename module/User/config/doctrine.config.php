@@ -9,14 +9,9 @@ return [
             ],
             'orm_default' => [
                 'drivers' => [
-                    'Aqilix\OAuth2\Entity' => 'aqilix_oauth2_entity',
                     'User\Entity' => 'user_entity',
-
                 ]
             ]
         ],
-    ],
-    'data-fixture' => [
-        'fixtures' => __DIR__ . '/../src/V1/Fixture'
     ],
 ];

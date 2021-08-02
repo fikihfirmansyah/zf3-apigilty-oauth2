@@ -3,18 +3,41 @@
 namespace User\Entity;
 
 use Aqilix\ORM\Entity\EntityInterface;
-use Aqilix\OAuth2\Entity\OauthUsers;
-use Gedmo\Timestampable\Traits\Timestampable as TimestampableTrait;
-use Gedmo\SoftDeleteable\Traits\SoftDeleteable as SoftDeleteableTrait;
 
 /**
  * ResetPassword
  */
 class ResetPassword implements EntityInterface
 {
-    use TimestampableTrait;
+    /**
+     * @var \DateTime
+     */
+    private $expiration;
 
-    use SoftDeleteableTrait;
+    /**
+     * @var \DateTime|null
+     */
+    private $reseted;
+
+    /**
+     * @var string|null
+     */
+    private $password;
+
+    /**
+     * @var \DateTime|null
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime|null
+     */
+    private $updatedAt;
+
+    /**
+     * @var \DateTime|null
+     */
+    private $deletedAt;
 
     /**
      * @var string
@@ -22,55 +45,29 @@ class ResetPassword implements EntityInterface
     private $uuid;
 
     /**
-     * @var Aqilix\OAuth2\Entity\OauthUsers
+     * @var \Aqilix\OAuth2\Entity\OauthUsers
      */
     private $user;
 
-    /**
-     * @var DateTime
-     */
-    private $expiration;
-
-   /**
-     * @var DateTime
-     */
-    private $reseted;
 
     /**
-     * @var string
-     */
-    private $password;
-
-    /**
-     * @return the $uuid
-     */
-    public function getUuid()
-    {
-        return $this->uuid;
-    }
-
-    /**
-     * Get username
+     * Set expiration.
      *
-     * @return string
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * Set User
+     * @param \DateTime $expiration
      *
-     * @param Aqilix\OAuth2\Entity\OauthUsers $oauthUser
+     * @return ResetPassword
      */
-    public function setUser(OauthUsers $oauthUser)
+    public function setExpiration($expiration)
     {
-        $this->user = $oauthUser;
+        $this->expiration = $expiration;
+
+        return $this;
     }
 
     /**
-     * @return the $expiration
+     * Get expiration.
+     *
+     * @return \DateTime
      */
     public function getExpiration()
     {
@@ -78,15 +75,23 @@ class ResetPassword implements EntityInterface
     }
 
     /**
-     * @param \DateTime $expiration
+     * Set reseted.
+     *
+     * @param \DateTime|null $reseted
+     *
+     * @return ResetPassword
      */
-    public function setExpiration($expiration)
+    public function setReseted($reseted = null)
     {
-        $this->expiration = $expiration;
+        $this->reseted = $reseted;
+
+        return $this;
     }
 
     /**
-     * @return the $reseted
+     * Get reseted.
+     *
+     * @return \DateTime|null
      */
     public function getReseted()
     {
@@ -94,15 +99,23 @@ class ResetPassword implements EntityInterface
     }
 
     /**
-     * @param \DateTime $reseted
+     * Set password.
+     *
+     * @param string|null $password
+     *
+     * @return ResetPassword
      */
-    public function setReseted($reseted)
+    public function setPassword($password = null)
     {
-        $this->reseted = $reseted;
+        $this->password = $password;
+
+        return $this;
     }
 
     /**
-     * @return the $password
+     * Get password.
+     *
+     * @return string|null
      */
     public function getPassword()
     {
@@ -110,10 +123,108 @@ class ResetPassword implements EntityInterface
     }
 
     /**
-     * @param \User\Entity\string $password
+     * Set createdAt.
+     *
+     * @param \DateTime|null $createdAt
+     *
+     * @return ResetPassword
      */
-    public function setPassword($password)
+    public function setCreatedAt($createdAt = null)
     {
-        $this->password = $password;
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt.
+     *
+     * @return \DateTime|null
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt.
+     *
+     * @param \DateTime|null $updatedAt
+     *
+     * @return ResetPassword
+     */
+    public function setUpdatedAt($updatedAt = null)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt.
+     *
+     * @return \DateTime|null
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set deletedAt.
+     *
+     * @param \DateTime|null $deletedAt
+     *
+     * @return ResetPassword
+     */
+    public function setDeletedAt($deletedAt = null)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedAt.
+     *
+     * @return \DateTime|null
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
+
+    /**
+     * Get uuid.
+     *
+     * @return string
+     */
+    public function getUuid()
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * Set user.
+     *
+     * @param \Aqilix\OAuth2\Entity\OauthUsers|null $user
+     *
+     * @return ResetPassword
+     */
+    public function setUser(\Aqilix\OAuth2\Entity\OauthUsers $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user.
+     *
+     * @return \Aqilix\OAuth2\Entity\OauthUsers|null
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

@@ -23,19 +23,19 @@ return [
         ],
         'email'  => [
             'welcome' => [
-                'from' => '',
-                'name' => '',
-                'subject' => ''
+                'from' => 'noreply@genietree.biz',
+                'name' => 'UMeShare',
+                'subject'  => 'Welcome To UMeShare'
             ],
             'user_activation' => [
-                'from' => '',
-                'name' => '',
-                'subject' => ''
+                'from' => 'noreply@genietree.biz',
+                'name' => 'UMeShare',
+                'subject' => 'UMeeShare - Account Activated'
             ],
             'reset_password' => [
-                'from' => '',
-                'name' => '',
-                'subject' => ''
+                'from' => 'noreply@genietree.biz',
+                'name' => 'UMeShare',
+                'subject' => 'UMeeShare - Reset Password'
             ],
         ]
     ]

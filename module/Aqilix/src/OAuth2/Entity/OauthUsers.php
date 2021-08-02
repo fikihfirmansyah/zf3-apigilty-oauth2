@@ -3,10 +3,12 @@
 namespace Aqilix\OAuth2\Entity;
 
 use Aqilix\ORM\Entity\EntityInterface;
+use Gedmo\Timestampable\Traits\Timestampable as TimestampableTrait;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteable as SoftDeleteableTrait;
 
 /**
- * OauthUsers
- */
+ *  * OauthUsers
+ *   */
 class OauthUsers implements EntityInterface
 {
     /**
@@ -29,6 +31,10 @@ class OauthUsers implements EntityInterface
      */
     private $username;
 
+    /**
+     * @var \User\Entity\Account
+     */
+    private $account;
 
     /**
      * Set password
@@ -112,13 +118,34 @@ class OauthUsers implements EntityInterface
         return $this->username;
     }
 
-    /**
-     *
-     * @return \Aqilix\OAuth2\Entity
-     */
     public function setUsername($username)
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of account
+     *
+     * @return  \User\Entity\Account
+     */
+    public function getAccount()
+    {
+        return $this->account;
+    }
+
+    /**
+     * Set the value of account
+     *
+     * @param  \User\Entity\Account  $account
+     *
+     * @return  self
+     */
+    public function setAccount(\User\Entity\Account $account)
+    {
+        $this->account = $account;
+
         return $this;
     }
 }

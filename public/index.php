@@ -7,6 +7,8 @@
 use Zend\Stdlib\ArrayUtils;
 use ZF\Apigility\Application;
 
+date_default_timezone_set('Asia/Jakarta');
+
 /**
  * This makes our life easier when dealing with paths. Everything is relative
  * to the application root now.

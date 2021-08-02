@@ -12,10 +12,23 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class AbstractMapperFactory implements AbstractFactoryInterface
 {
+    /**
+     * @var array
+     */
     protected $mappers = [];
 
+    /**
+     * @var string
+     */
     protected $mapperPrefix = 'Aqilix\\ORM\\Mapper\\';
 
+    /**
+     * Authorize can create.
+     *
+     * @param  \Interop\Container\ContainerInterface  $container
+     * @param  string  $requestedName
+     * @return bool
+     */
     public function canCreate(ContainerInterface $container, $requestedName)
     {
         if (strpos($requestedName, $this->mapperPrefix) !== false) {
@@ -25,11 +38,27 @@ class AbstractMapperFactory implements AbstractFactoryInterface
         return false;
     }
 
+    /**
+     * Authorize can create service with name.
+     *
+     * @param  \Zend\ServiceManager\ServiceLocatorInterface  $services
+     * @param  string  $name
+     * @param  string  $requestedName
+     * @return bool
+     */
     public function canCreateServiceWithName(ServiceLocatorInterface $services, $name, $requestedName)
     {
         return $this->canCreate($services, $requestedName);
     }
 
+    /**
+     * Invoke the class.
+     *
+     * @param  \Interop\Container\ContainerInterface  $container
+     * @param  string  $requestedName
+     * @param  array  $options
+     * @return object
+     */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         if (isset($this->mappers[$requestedName])) {
@@ -43,6 +72,14 @@ class AbstractMapperFactory implements AbstractFactoryInterface
         return $mapper;
     }
 
+    /**
+     * Create service with name.
+     *
+     * @param  \Zend\ServiceManager\ServiceLocatorInterface  $services
+     * @param  string  $name
+     * @param  string  $requestedName
+     * @return object
+     */
     public function createServiceWithName(ServiceLocatorInterface $services, $name, $requestedName)
     {
         return $this($services, $requestedName);

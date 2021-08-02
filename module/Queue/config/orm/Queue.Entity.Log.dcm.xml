@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
+
+  <entity name="Queue\Entity\Log" table="queue_logs">
+
+    <indexes>
+      <index name="queue_log_device_idx" columns="device_uuid"/>
+      <index name="queue_log_number_idx" columns="number"/>
+      <index name="queue_log_counter_number_idx" columns="counter_number"/>
+      <index name="queue_log_reserved_time_idx" columns="reserved_time"/>
+    </indexes>
+
+    <id name="uuid" type="string" column="uuid" length="36">
+      <generator strategy="UUID"/>
+    </id>
+    <field name="number" type="string" column="number" length="50" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="counterNumber" type="string" column="counter_number" length="50" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="reservedTime" type="datetime" column="reserved_time" nullable="false"/>
+    <field name="calledTime" type="datetime" column="called_time" nullable="true"/>
+    <field name="endTime" type="datetime" column="end_time" nullable="true"/>
+    <field name="processingTime" type="float" column="processing_time" precision="10" scale="0" nullable="true" />
+    <field name="waitingTime" type="float" column="waiting_time" precision="10" scale="0" nullable="true" />
+
+    <field name="createdAt" type="datetime" column="created_at" nullable="false">
+      <options>
+        <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+      <gedmo:timestampable on="create"/>
+    </field>
+    <field name="updatedAt" type="datetime" column="updated_at" nullable="false">
+      <options>
+        <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+      <gedmo:timestampable on="update"/>
+    </field>
+    <field name="deletedAt" type="datetime" column="deleted_at" nullable="true"/>
+
+    <gedmo:soft-deleteable field-name="deletedAt" time-aware="false" />
+
+    <many-to-one field="device" target-entity="Queue\Entity\Device" fetch="LAZY">
+      <join-columns>
+        <join-column name="device_uuid" referenced-column-name="uuid"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -3,6 +3,7 @@
 namespace Aqilix\ORM\Mapper;
 
 use Aqilix\ORM\Entity\EntityInterface;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrinePaginatorAdapter;
 
@@ -16,9 +17,10 @@ abstract class AbstractMapper implements MapperInterface
     use EntityManagerTrait;
 
     /**
-     * Save Entity
+     * Save entity.
      *
-     * @param EntityInterface $entity
+     * @param  \Aqilix\ORM\Entity\EntityInterface $entity
+     * @return \Aqilix\ORM\Entity\EntityInterface
      */
     public function save(EntityInterface $entity)
     {
@@ -28,9 +30,10 @@ abstract class AbstractMapper implements MapperInterface
     }
 
     /**
-     * Fetch Review by Id
+     * Fetch single record by id.
      *
-     * @param int $id
+     * @param  mixed  $id
+     * @return object|null
      */
     public function fetchOne($id)
     {
@@ -38,10 +41,10 @@ abstract class AbstractMapper implements MapperInterface
     }
 
     /**
-     * Fetch single records with params
+     * Fetch single record with params.
      *
-     * @param array $params
-     * @return object
+     * @param  array  $params
+     * @return object|null
      */
     public function fetchOneBy($params = [])
     {
@@ -49,35 +52,37 @@ abstract class AbstractMapper implements MapperInterface
     }
 
     /**
-     * Fetch Reviews with pagination
+     * Fetch multiple records with params.
      *
-     * @param  array $params
-     * @return ZendPaginator
+     * @param  array  $params
+     * @param  mixed|null  $order
+     * @param  bool  $asc
+     * @return \Doctrine\ORM\Query
      */
-    public function fetchAll(array $params)
+    public function fetchAll(array $params, $order = null, $asc = false)
     {
     }
 
+
     /**
-     * Get Paginator Adapter for list
+     * Get paginator adapter.
      *
-     * @param  unknown $query
-     * @param  boolean $fetchJoinCollection
-     * @return DoctrineORMModule\Paginator\Adapter\DoctrinePaginator
+     * @param  \Doctrine\ORM\QueryBuilder  $queryBuilder
+     * @return \DoctrineORMModule\Paginator\Adapter\DoctrinePaginator
      */
-    public function buildListPaginatorAdapter(array $params)
+    public function createPaginatorAdapter($queryBuilder)
     {
-        $query   = $this->fetchAll($params);
-        $doctrinePaginator = new DoctrinePaginator($query, true);
+        $doctrinePaginator = new DoctrinePaginator($queryBuilder, true);
         $adapter = new DoctrinePaginatorAdapter($doctrinePaginator);
 
         return $adapter;
     }
 
     /**
-     * Delete Entity
+     * Delete entity.
      *
-     * @param EntityInterface $entity
+     * @param  \Aqilix\ORM\Entity\EntityInterface  $entity
+     * @return void
      */
     public function delete(EntityInterface $entity)
     {
@@ -86,7 +91,9 @@ abstract class AbstractMapper implements MapperInterface
     }
 
     /**
-     * Get Entity Repository
+     * Get entity repository.
+     *
+     * @return \Doctrine\ORM\EntityRepository
      */
     public function getEntityRepository()
     {

@@ -1,0 +1,69 @@
+image: xtendindonesia/docker-ub-18.04-php7-fpm-nginx:7.4.10
+
+options:
+  max-time: 30
+pipelines:
+  default:
+    - step:
+        script:
+          - echo "This script runs on all branches that don't have any specific pipeline assigned in 'branches'."
+  branches:
+    develop:
+      - step:
+          caches:
+            - composer
+          name: IWK QMS Back End
+          deployment: development
+          script:
+            # create path
+            - mkdir -p ${DEPLOYLIVEPATH}
+            # sync content to path
+            - rsync -av . ${DEPLOYLIVEPATH}
+            # change directory
+            - cd ${DEPLOYLIVEPATH}
+            # download composer
+            # - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+            # instal dependencies
+            - ./composer install
+            # change permission
+            - chmod 755 module config public vendor
+            # archive vendor
+            - tar cvfz vendor.tar.gz vendor > /dev/null
+
+            # remove unused releases
+            - ssh ${DEPLOYUSER}@${DEPLOYHOST} -p ${DEPLOYHOSTPORT} "ls -d ${DEPLOYPATH}/* | grep -v \"\`readlink ${DEPLOYLIVEPATH}\`\" | xargs rm -rf"
+            # create release directory
+            - ssh ${DEPLOYUSER}@${DEPLOYHOST} -p ${DEPLOYHOSTPORT} "mkdir ${DEPLOYPATH}/${BITBUCKET_BUILD_NUMBER}"
+            # send files
+            - rsync --exclude ".git" --exclude "vendor" --exclude "data/log" --exclude "data/doc" --exclude "data/DoctrineORMModule/Proxy" -rtlvz -e "ssh -p ${DEPLOYHOSTPORT}" -av --progress . "${DEPLOYUSER}@${DEPLOYHOST}:${DEPLOYPATH}/${BITBUCKET_BUILD_NUMBER}/."
+
+            # link shared dir
+            - ssh ${DEPLOYUSER}@${DEPLOYHOST} -p ${DEPLOYHOSTPORT} "ln -sfn ${DEPLOYSHAREDDIR}/data/log ${DEPLOYPATH}/${BITBUCKET_BUILD_NUMBER}/data/log"
+            - ssh ${DEPLOYUSER}@${DEPLOYHOST} -p ${DEPLOYHOSTPORT} "ln -sfn ${DEPLOYSHAREDDIR}/data/doc ${DEPLOYPATH}/${BITBUCKET_BUILD_NUMBER}/data/doc"
+            - ssh ${DEPLOYUSER}@${DEPLOYHOST} -p ${DEPLOYHOSTPORT} "ln -sfn ${DEPLOYSHAREDDIR}/data/DoctrineORMModule/Proxy ${DEPLOYPATH}/${BITBUCKET_BUILD_NUMBER}/data/DoctrineORMModule/Proxy"
+
+            # link shared config
+            - ssh ${DEPLOYUSER}@${DEPLOYHOST} -p ${DEPLOYHOSTPORT} "ln -sfn ${DEPLOYSHAREDCONFIG}/local.php ${DEPLOYPATH}/${BITBUCKET_BUILD_NUMBER}/config/autoload/local.php"
+            - ssh ${DEPLOYUSER}@${DEPLOYHOST} -p ${DEPLOYHOSTPORT} "ln -sfn ${DEPLOYSHAREDCONFIG}/user.local.php ${DEPLOYPATH}/${BITBUCKET_BUILD_NUMBER}/config/autoload/user.local.php"
+            - ssh ${DEPLOYUSER}@${DEPLOYHOST} -p ${DEPLOYHOSTPORT} "ln -sfn ${DEPLOYSHAREDCONFIG}/doctrine.local.php ${DEPLOYPATH}/${BITBUCKET_BUILD_NUMBER}/config/autoload/doctrine.local.php"
+            - ssh ${DEPLOYUSER}@${DEPLOYHOST} -p ${DEPLOYHOSTPORT} "ln -sfn ${DEPLOYSHAREDCONFIG}/oauth2.local.php ${DEPLOYPATH}/${BITBUCKET_BUILD_NUMBER}/config/autoload/oauth2.local.php"
+
+            # change permission cache folder
+            - ssh ${DEPLOYUSER}@${DEPLOYHOST} -p ${DEPLOYHOSTPORT} "chmod -R 757 ${DEPLOYPATH}/${BITBUCKET_BUILD_NUMBER}/data/cache"
+
+            # extract vendor.tar.gz
+            - ssh ${DEPLOYUSER}@${DEPLOYHOST} -p ${DEPLOYHOSTPORT} "tar xfz ${DEPLOYPATH}/${BITBUCKET_BUILD_NUMBER}/vendor.tar.gz -C ${DEPLOYPATH}/${BITBUCKET_BUILD_NUMBER}/"
+            # remove vendor.tar.gz
+            - ssh ${DEPLOYUSER}@${DEPLOYHOST} -p ${DEPLOYHOSTPORT} "rm -fr ${DEPLOYPATH}/${BITBUCKET_BUILD_NUMBER}/vendor.tar.gz"
+
+            # run
+            - ssh ${DEPLOYUSER}@${DEPLOYHOST} -p ${DEPLOYHOSTPORT} "php7.4 ${DEPLOYPATH}/${BITBUCKET_BUILD_NUMBER}/vendor/bin/doctrine-module migrations:migrate --no-interaction"
+
+            # create symlink
+            - ssh ${DEPLOYUSER}@${DEPLOYHOST} -p ${DEPLOYHOSTPORT} "ln -sfn ${DEPLOYPATH}/${BITBUCKET_BUILD_NUMBER} ${DEPLOYLIVEPATH}"
+
+            # clear cache
+            - ssh ${DEPLOYUSER}@${DEPLOYHOST} -p ${DEPLOYHOSTPORT} "rm -rf ${DEPLOYPATH}/${BITBUCKET_BUILD_NUMBER}/data/cache/*"
+
+            # reload
+            - ssh ${DEPLOYUSER}@${DEPLOYHOST} -p ${DEPLOYHOSTPORT} "sudo /etc/init.d/php7.4-fpm reload"

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        @page {
+            margin-top: 0cm;
+            margin-bottom: 2cm;
+            margin-left: 0cm;
+            margin-right: 0cm;
+            size: 11.5in 13.5in
+        }
+
+        @media print {
+            body {
+                margin-top: 50mm;
+                margin-bottom: 50mm;
+                margin-left: 0mm;
+                margin-right: 0mm
+            }
+        }
+
+        body {
+            margin: 0 !important;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h5,
+        h6 {
+            /* color: #ffffff; */
+            text-align: center;
+            margin: 0 10px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 6px 3px;
+            font-size: 16px;
+        }
+
+        .text-primary {
+            color: #2196f3 !important;
+        }
+
+        .text-danger {
+            color: #dc3545 !important;
+        }
+
+        .text-success {
+            color: #28a745 !important;
+        }
+
+        .text-white {
+            color: #fff !important;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
+
+        th {
+            background: #2196f3;
+            color: #fff;
+        }
+
+        .mt-2 {
+            margin-top: 1.5em;
+        }
+
+        .pt-3 {
+            padding-top: 3em;
+        }
+
+        .mt-3 {
+            margin-top: 2.5em;
+        }
+
+        .footer {
+            position: fixed;
+            left: 0;
+            border-top: 3px solid #2196f3;
+            bottom: 0;
+            color: #ccc;
+            padding-left: 10px;
+            width: 100%;
+        }
+
+        .text-center {
+            text-align: center !important;
+        }
+
+        .text-right {
+            text-align: right !important;
+        }
+
+        .hero-image {
+            background-image: url("https://dev.face.xtend.my.id/img/report.png");
+            height: 500px;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .hero-text {
+            text-align: center;
+            position: absolute;
+            top: 5 0%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: black;
+        }
+
+        .width-50 {
+            width: 50% !important;
+            height: auto;
+        }
+
+        .float-left {
+            float: left;
+        }
+
+        .float-right {
+            float: right;
+        }
+
+        .container {
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .top-left {
+            position: absolute;
+            top: 80px;
+            font-size: 2rem;
+            left: 10px;
+        }
+
+        .top-right {
+            position: absolute;
+            top: 100px;
+            font-size: 25px;
+            right: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="width-50 float-left">
+        <div id="logo">
+            <?php
+            $logo = base64_encode(file_get_konten($logoPath));
+            $src = 'data:' . mime_content_type($logoPath) . ';base64,' . $logo;
+            ?>
+            <img src="<?php echo $src ?>">
+        </div>
+        <h1 class="pt-3 top-left text-primary">Queue Log Report</h1>
+    </div>
+    <div class="width-50 float-left">
+        <div class="container">
+            <img src="https://dev.face.xtend.my.id/img/report.png" alt="Snow" style="width:100%;">
+            <div class="top-right"><?php echo $date ?></div>
+        </div>
+    </div>
+    <table class="mt-3" style="margin-top: 200px;">
+        <tr>
+            <th>Queue No.</th>
+            <th>Counter</th>
+            <th class="text-center">Reserved Time</th>
+            <th class="text-center">Called Time</th>
+            <th class="text-center">End Time</th>
+            <th class="text-right">Waiting Duration</th>
+            <th class="text-right">Processing Duration</th>
+            <th>Site</th>
+            <th>Device</th>
+        </tr>
+        <?php
+        foreach ($data as $queue) {
+        ?>
+            <tr>
+                <td><?php echo $queue['number'] ?></td>
+                <td><?php echo $queue['counter_number'] ?></td>
+                <td class="text-center"><?php echo $queue['reserved_time']; ?></td>
+                <td class="text-center"><?php echo $queue['called_time'] ?></td>
+                <td class="text-center"><?php echo $queue['end_time']; ?></td>
+                <td class="text-center"><?php echo $queue['waiting_time']; ?></td>
+                <td class="text-center"><?php echo $queue['processing_time']; ?></td>
+                <td class="text-center"><?php echo $queue['site_name']; ?></td>
+                <td class="text-center"><?php echo $queue['device_name']; ?></td>
+            </tr>
+        <?php
+        }
+        ?>
+    </table>
+    <div class="footer">
+        <p>This report is generated by Xtend QMS</p>
+    </div>
+</body>
+
+</html>
