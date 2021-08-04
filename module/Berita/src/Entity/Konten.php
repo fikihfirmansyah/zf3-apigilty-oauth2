@@ -15,6 +15,11 @@ class Konten implements EntityInterface
     private $judul;
 
     /**
+     * @var text
+     */
+    private $foto;
+
+    /**
      * @var string
      */
     private $isi;
@@ -73,6 +78,32 @@ class Konten implements EntityInterface
     {
         return $this->judul;
     }
+
+
+    /**
+     * Set foto.
+     *
+     * @param string $foto
+     *
+     * @return string
+     */
+    public function setFoto($foto)
+    {
+        $this->foto = $foto;
+
+        return $this;
+    }
+
+    /**
+     * Get string.
+     *
+     * @return text
+     */
+    public function getFoto()
+    {
+        return $this->foto;
+    }
+
 
     /**
      * Set isi.

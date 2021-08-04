@@ -239,6 +239,35 @@ return [
                 ],
                 'name' => 'kategori',
             ],
+            4 => [
+                'required' => true,
+                'validators' => [
+                    0 => [
+                        'name' => \Zend\Validator\File\MimeType::class,
+                        'options' => [
+                            'mimeType' => 'image/png',
+                        ],
+                    ],
+                    1 => [
+                        'name' => \Zend\Validator\File\Extension::class,
+                        'options' => [
+                            'extension' => 'png',
+                        ],
+                    ],
+                ],
+                'filters' => [
+                    0 => [
+                        'name' => \Zend\Filter\File\RenameUpload::class,
+                        'options' => [
+                            'randomize' => true,
+                            'use_upload_extension' => true,
+                            'target' => 'data/foto/konten',
+                        ],
+                    ],
+                ],
+                'name' => 'foto',
+                'type' => \Zend\InputFilter\FileInput::class,
+            ],
         ],
         'Berita\\V1\\Rest\\Komentar\\Validator' => [
             0 => [

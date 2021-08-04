@@ -22,11 +22,14 @@ class KontenHydratorFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
+        $helper = new \Zend\View\Helper\ServerUrl();
         $entityManager = $container->get('doctrine.entitymanager.orm_default');
+        $url = $helper->getScheme() . '://' . $helper->getHost();
 
         $hydrator = new DoctrineObject($entityManager);
-        $hydrator->addStrategy('createdAt', new DateTimeFormatterStrategy('c'));
-        $hydrator->addStrategy('updatedAt', new DateTimeFormatterStrategy('c'));
+        $hydrator->addStrategy('foto', new Strategy\FotoStrategy($url));
+        $hydrator->addStrategy('createdAt', new DateTimeFormatterStrategy('Y-m-d h-m-s'));
+        $hydrator->addStrategy('updatedAt', new DateTimeFormatterStrategy('Y-m-d h-m-s'));
 
         $hydrator->addFilter('exclude', function ($property) {
             if (in_array($property, ['deletedAt']))

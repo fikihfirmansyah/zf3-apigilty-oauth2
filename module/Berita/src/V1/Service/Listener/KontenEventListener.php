@@ -77,6 +77,9 @@ class KontenEventListener implements ListenerAggregateInterface
                 throw new \InvalidArgumentException('Input filter not set');
 
             $bodyRequest = $event->getInput()->getValues();
+            $bodyRequest['foto'] = $bodyRequest['foto']['tmp_name'];
+            $bodyRequest = str_replace("data", "assets", $bodyRequest);
+
             $hydratedEntity = $this->kontenHydrator
                 ->hydrate(
                     $bodyRequest,

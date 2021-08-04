@@ -18,6 +18,7 @@ final class Version20210802034146 extends AbstractMigration
 
         $table->addColumn('uuid', 'string', ['length' => 36]);
         $table->addColumn('judul', 'string', ['length' => 100]);
+        $table->addColumn('foto', 'text');
         $table->addColumn('isi', 'string', ['length' => 255]);
         $table->addColumn('penulis', 'string', ['length' => 100]);
         $table->addColumn('kategori', 'string', ['length' => 100]);
