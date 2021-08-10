@@ -54,6 +54,7 @@ return [
                 'Invoice\\V1' => 'oauth2_pdo',
                 'Queue\\V1' => 'oauth2_pdo',
                 'Berita\\V1' => 'oauth2_pdo',
+                'Forum\\V1' => 'oauth2_pdo',
             ],
             'adapters' => [
                 'oauth2_pdo' => [

@@ -1,4 +1,5 @@
 <?php
+
 namespace User\V1\Rpc\Me;
 
 use Zend\Mvc\Controller\AbstractActionController;
@@ -11,13 +12,18 @@ class MeController extends AbstractActionController
 {
     protected $me;
 
-    public function __construct($me){
+    public function __construct($me)
+    {
         $this->me = $me;
     }
 
     public function meAction()
     {
-        var_dump('entah'); exit(0);
-        return 'entah';
+        $userProfile = [];
+        if (!is_null($this->userProfile)) {
+            return new HalJsonModel(['uuid'  => $this->userProfile->getUuid()]);
+        } else {
+            return new ApiProblemResponse(new ApiProblem(404, "User Identity not found"));
+        }
     }
 }

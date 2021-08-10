@@ -39,4 +39,5 @@ return [
     'Xtend',
     'Queue',
     'Berita',
+    'Forum',
 ];

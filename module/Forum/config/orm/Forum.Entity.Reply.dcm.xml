@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd"
+  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
+
+  <entity name="Forum\Entity\Reply" table="forum_reply">
+    <indexes>
+      <index name="thread_idx" columns="thread_uuid"/>
+    </indexes>
+    <id name="uuid" type="string" column="uuid" length="255">
+      <generator strategy="UUID"/>
+    </id>
+    <field name="replyBody" type="string" column="reply_body" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="replyAuthor" type="string" column="reply_author" length="255" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="replyAttach" type="text" column="reply_attach" length="0" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="createdAt" type="datetime" column="created_at" nullable="false">
+      <options>
+        <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+      <gedmo:timestampable on="create"/>
+
+    </field>
+    <field name="updatedAt" type="datetime" column="updated_at" nullable="false">
+      <options>
+        <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+      <gedmo:timestampable on="update"/>
+
+    </field>
+    <field name="deletedAt" type="datetime" column="deleted_at" nullable="true"/>
+    <gedmo:soft-deleteable field-name="deletedAt" time-aware="false" />
+
+
+    <many-to-one field="thread" target-entity="Forum\Entity\Thread" fetch="LAZY">
+      <join-columns>
+        <join-column name="thread_uuid" referenced-column-name="uuid"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

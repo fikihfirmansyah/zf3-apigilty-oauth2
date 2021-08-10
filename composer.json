@@ -50,7 +50,9 @@
         "dompdf/dompdf": "^0.8.2",
         "xtend/payment": "^0.0.3",
         "google/apiclient": "^2.0",
-        "facebook/graph-sdk": "^5.7"
+        "facebook/graph-sdk": "^5.7",
+        "zfcampus/zf-apigility-doctrine": "^2.3",
+        "zfcampus/zf-doctrine-querybuilder": "^1.8"
     },
     "require-dev": {
         "zendframework/zend-developer-tools": "^1.1",

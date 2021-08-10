@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1a54d9a4631fb1d62ec6b0e0e5c529dc",
+    "content-hash": "71bca1907cbcaf35f031bb57ce2031c1",
     "packages": [
         {
             "name": "amphp/amp",
@@ -2963,6 +2963,66 @@
             "description": "A library to read, parse and export to PDF SVG files.",
             "homepage": "https://github.com/PhenX/php-svg-lib",
             "time": "2019-09-11T20:02:13+00:00"
+        },
+        {
+            "name": "phpro/zf-doctrine-hydration-module",
+            "version": "v4.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpro/zf-doctrine-hydration-module.git",
+                "reference": "a1df64f4aee40ae55027402ce783fbec87635166"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpro/zf-doctrine-hydration-module/zipball/a1df64f4aee40ae55027402ce783fbec87635166",
+                "reference": "a1df64f4aee40ae55027402ce783fbec87635166",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/common": "^2.6.1",
+                "doctrine/doctrine-module": "^1.2 || ^2.1.7",
+                "doctrine/instantiator": "^1.0.5",
+                "php": "^5.6 || ^7.0",
+                "zendframework/zend-hydrator": "^1.1 || ^2.2.1",
+                "zendframework/zend-modulemanager": "^2.7.2",
+                "zendframework/zend-servicemanager": "^3.3.2"
+            },
+            "require-dev": {
+                "doctrine/doctrine-mongo-odm-module": "^0.11 || ^1.0",
+                "doctrine/doctrine-orm-module": "^1.1 || ^2.1.2",
+                "doctrine/mongodb-odm": "^1.1",
+                "fabpot/php-cs-fixer": "^1.11.6",
+                "phpro/grumphp": "^0.9.1",
+                "phpunit/phpunit": "^5.7.27"
+            },
+            "type": "library",
+            "extra": {
+                "zf": {
+                    "module": "Phpro\\DoctrineHydrationModule"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Phpro\\DoctrineHydrationModule\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Toon Verwerft",
+                    "email": "toon.verwerft@phpro.be"
+                }
+            ],
+            "description": "Doctrine hydrators for ZF2 and ZF3",
+            "keywords": [
+                "doctrine",
+                "hydrator",
+                "zf"
+            ],
+            "time": "2019-01-18T05:39:08+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
@@ -6715,6 +6775,83 @@
             "time": "2018-05-03T16:54:11+00:00"
         },
         {
+            "name": "zfcampus/zf-apigility-doctrine",
+            "version": "2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zfcampus/zf-apigility-doctrine.git",
+                "reference": "65e80f0085054c0ec1437443fe02e4f556c40f85"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zfcampus/zf-apigility-doctrine/zipball/65e80f0085054c0ec1437443fe02e4f556c40f85",
+                "reference": "65e80f0085054c0ec1437443fe02e4f556c40f85",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6 || ^7.0",
+                "phpro/zf-doctrine-hydration-module": "^2.0.1 || ^3.0 || ^4.1",
+                "zfcampus/zf-apigility": "^1.3"
+            },
+            "require-dev": {
+                "doctrine/doctrine-module": "^1.2 || ^2.1.7",
+                "doctrine/doctrine-mongo-odm-module": "^0.11 || ^1.0",
+                "doctrine/doctrine-orm-module": "^1.1 || ^2.1.3",
+                "doctrine/mongodb-odm": "^1.0",
+                "phpunit/phpunit": "^5.7.27 || ^6.5.13 || ^7.5.2",
+                "symfony/yaml": "^2.3 || ^3.0 || ^4.0",
+                "zendframework/zend-coding-standard": "~1.0.0",
+                "zendframework/zend-form": "^2.9.2",
+                "zendframework/zend-i18n": "^2.7.3",
+                "zendframework/zend-log": "^2.9.1",
+                "zendframework/zend-mvc": "^2.7.13 || ^3.0.2",
+                "zendframework/zend-serializer": "^2.8",
+                "zendframework/zend-stdlib": "^2.7.7 || ^3.2.1",
+                "zendframework/zend-test": "^2.6.1 || ^3.0.1",
+                "zfcampus/zf-apigility-admin": "^1.5.7",
+                "zfcampus/zf-hal": "^1.4.2"
+            },
+            "suggest": {
+                "api-skeletons/zf-doctrine-hydrator": "Hydrator strategies for Doctrine in Apigility",
+                "api-skeletons/zf-oauth2-doctrine": "OAuth2 Doctrine Adapter for Apigility",
+                "doctrine/doctrine-mongo-odm-module": "For Mongo ODM mapping",
+                "doctrine/doctrine-orm-module": "For ORM mapping"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3.x-dev",
+                    "dev-develop": "2.4.x-dev"
+                },
+                "zf": {
+                    "module": [
+                        "ZF\\Apigility\\Doctrine\\Admin",
+                        "ZF\\Apigility\\Doctrine\\Server"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ZF\\Apigility\\Doctrine\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Apigility Doctrine module",
+            "homepage": "http://apigility.org/",
+            "keywords": [
+                "ZendFramework",
+                "api",
+                "apigility",
+                "doctrine",
+                "zf"
+            ],
+            "abandoned": "laminas-api-tools/api-tools-doctrine",
+            "time": "2019-01-24T10:16:00+00:00"
+        },
+        {
             "name": "zfcampus/zf-apigility-documentation",
             "version": "1.3.0",
             "source": {
@@ -7052,6 +7189,85 @@
             ],
             "abandoned": "laminas/laminas-development-mode",
             "time": "2018-05-07T15:44:42+00:00"
+        },
+        {
+            "name": "zfcampus/zf-doctrine-querybuilder",
+            "version": "1.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zfcampus/zf-doctrine-querybuilder.git",
+                "reference": "c3da032a9c7b9cb3ff05e9da13ee06ee7f34d8d2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zfcampus/zf-doctrine-querybuilder/zipball/c3da032a9c7b9cb3ff05e9da13ee06ee7f34d8d2",
+                "reference": "c3da032a9c7b9cb3ff05e9da13ee06ee7f34d8d2",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/doctrine-module": "^1.2 || ^2.1.8",
+                "php": "^5.6 || ^7.0",
+                "zendframework/zend-hydrator": "^1.1 || ^2.2.1 || ^3.0",
+                "zendframework/zend-modulemanager": "^2.7.2",
+                "zendframework/zend-mvc": "^2.7.13 || ^3.0.2",
+                "zendframework/zend-servicemanager": "^2.7.6 || ^3.1.1",
+                "zfcampus/zf-api-problem": "^1.2.2",
+                "zfcampus/zf-apigility-doctrine": "^2.1",
+                "zfcampus/zf-hal": "^1.4.2"
+            },
+            "require-dev": {
+                "doctrine/doctrine-mongo-odm-module": "^0.11 || ^1.0",
+                "doctrine/doctrine-orm-module": "^1.1 || ^2.1.3",
+                "phpunit/phpunit": "^5.7.27 || ^6.5.14 || ^7.5.3",
+                "symfony/yaml": "^2.3 || ^3.0 || ^4.0",
+                "zendframework/zend-coding-standard": "~1.0.0",
+                "zendframework/zend-i18n": "^2.7.3",
+                "zendframework/zend-log": "^2.9.1",
+                "zendframework/zend-serializer": "^2.8",
+                "zendframework/zend-test": "^2.6.1 || ^3.0.1",
+                "zfcampus/zf-apigility-provider": "^1.2"
+            },
+            "suggest": {
+                "doctrine/doctrine-mongo-odm-module": "^1.0, if you wish to use the Doctrine ODM",
+                "doctrine/doctrine-orm-module": "^1.1 || ^2.1.3, if you wish to use the Doctrine ORM",
+                "ext/mongo": "Mongo extension, if using ODM"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.8.x-dev",
+                    "dev-develop": "1.9.x-dev"
+                },
+                "zf": {
+                    "module": [
+                        "ZF\\Doctrine\\QueryBuilder"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/_autoload.php"
+                ],
+                "psr-4": {
+                    "ZF\\Doctrine\\QueryBuilder\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Apigility Doctrine QueryBuilder module",
+            "homepage": "https://apigility.org",
+            "keywords": [
+                "ZendFramework",
+                "api",
+                "apigility",
+                "doctrine",
+                "filter",
+                "zf"
+            ],
+            "abandoned": "laminas-api-tools/api-tools-doctrine-querybuilder",
+            "time": "2019-02-02T00:40:42+00:00"
         },
         {
             "name": "zfcampus/zf-hal",
@@ -8304,6 +8520,7 @@
             "keywords": [
                 "tokenizer"
             ],
+            "abandoned": true,
             "time": "2017-11-27T05:48:46+00:00"
         },
         {
@@ -9451,6 +9668,7 @@
                 "dom",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-dom",
             "time": "2019-06-18T10:36:49+00:00"
         },
         {
@@ -9522,6 +9740,7 @@
                 "test",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-test",
             "time": "2019-06-11T19:33:38+00:00"
         },
         {
@@ -9603,6 +9822,7 @@
                 "framework",
                 "zf2"
             ],
+            "abandoned": "laminas-api-tools/api-tools-admin",
             "time": "2019-04-04T14:32:43+00:00"
         },
         {
@@ -9715,6 +9935,7 @@
                 "swagger",
                 "zf"
             ],
+            "abandoned": "laminas-api-tools/api-tools-documentation-swagger",
             "time": "2018-05-07T17:17:13+00:00"
         },
         {
@@ -9759,6 +9980,7 @@
                 "BSD-3-Clause"
             ],
             "description": "Composer plugin for copying module assets into application document roots.",
+            "abandoned": "laminas-api-tools/api-tools-asset-manager",
             "time": "2017-11-02T22:28:50+00:00"
         },
         {
@@ -9805,6 +10027,7 @@
                 "framework",
                 "zf2"
             ],
+            "abandoned": "laminas/laminas-composer-autoloading",
             "time": "2017-02-22T16:35:18+00:00"
         },
         {
@@ -9858,6 +10081,7 @@
                 "console",
                 "zf"
             ],
+            "abandoned": true,
             "time": "2017-11-27T17:17:19+00:00"
         },
         {
@@ -9909,6 +10133,7 @@
                 "apigility",
                 "zf"
             ],
+            "abandoned": true,
             "time": "2018-05-07T15:51:51+00:00"
         }
     ],
